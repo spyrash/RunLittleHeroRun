@@ -1,7 +1,7 @@
-package rlhr_main;
+package main;
 
-import rlhr_menu_service.MenuService;
-import rlhr_frame.*;
+import frame.*;
+import menu_service.MenuService;
 public class Main {
 
 	public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package rlhr_frame;
+package frame;
 
 import javax.swing.JFrame;
 import game_panel.*;

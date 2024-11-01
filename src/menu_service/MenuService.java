@@ -1,4 +1,4 @@
-package rlhr_menu_service;
+package menu_service;
 
 public class MenuService {
 	
