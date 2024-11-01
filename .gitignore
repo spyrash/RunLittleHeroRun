@@ -6,3 +6,4 @@
 # Ignore build output directories (like bin/)
 bin/
 target/
+sprites/
