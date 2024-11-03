@@ -11,6 +11,10 @@ import entity.Player;
 
 public class GamePanel extends JPanel implements Runnable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// 	SCREEN SETTINGS
 	final int originalTileSize = 16; // 16x16 tile (retro game tile size)
 	final int scale = 3;
@@ -29,9 +33,7 @@ public class GamePanel extends JPanel implements Runnable{
 	Player player  = new Player(this, keyH);
 	
 	//set player default position
-	int playerX = 100;
-	int playerY = 100;
-	int playerSpeed = 10;
+
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
 		this.setBackground(Color.black);
