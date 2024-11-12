@@ -1,6 +1,5 @@
 package entity;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -13,22 +12,28 @@ import game_panel.KeyHandler;
 public class Player extends Entity {
 	GamePanel gp;
 	KeyHandler keyH;
-	
+
+	public final int screenX;
+	public final int screenY;
+
 	public Player(GamePanel gp, KeyHandler keyH) {
 		this.gp = gp;
 		this.keyH = keyH;
-		
+
+		screenX = gp.screenWidth / 2;
+		screenY = gp.screenHeight / 2;
 		setDefaultValues();
 		getPlayerImage();
 	}
-	
+
 	public void setDefaultValues() {
-		x = 100;
-		y = 100;
-		speed = 4;
+		// starting position
+		worldX = gp.tileSize * 21 - (gp.tileSize / 2);
+		worldY = gp.tileSize * 23 - (gp.tileSize / 2);
+		speed = 10;
 		direction = "down";
 	}
-	
+
 	public void getPlayerImage() {
 		try {
 			up1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_1.png"));
@@ -40,59 +45,59 @@ public class Player extends Entity {
 			right1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_1.png"));
 			right2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_2.png"));
 
-		} catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void update() {
-		
+
 		if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
 			if (keyH.upPressed == true) {
 				direction = "up";
-				y -= speed;
+				worldY -= speed;
 			}
 			if (keyH.downPressed == true) {
 				direction = "down";
-				y += speed;
+				worldY += speed;
 			}
 			if (keyH.leftPressed == true) {
 				direction = "left";
-				x -= speed;
+				worldX -= speed;
 			}
 			if (keyH.rightPressed == true) {
 				direction = "right";
-				x += speed;
+				worldX += speed;
 			}
-			
+
 			// remember method called 60 times per second
-			// if you like character moving when key not pressed 
+			// if you like character moving when key not pressed
 			// move this part out of the "if keyH pressed"
 			spriteCounter++;
 			if (spriteCounter > 13) {
 				if (1 == spriteNum) {
 					spriteNum = 2;
-				} else if(2 == spriteNum) {
+				} else if (2 == spriteNum) {
 					spriteNum = 1;
 				}
 				spriteCounter = 0;
 			}
 		}
-	
+
 	}
-	
+
 	public void draw(Graphics2D g2) {
 //		g2.setColor(Color.white);
 		// rectangle
-	//	g2.fillRect(x, y, gp.tileSize, gp.tileSize);
-		
+		// g2.fillRect(x, y, gp.tileSize, gp.tileSize);
+
 		BufferedImage image = null;
 		switch (direction) {
 		case "up":
 			image = spriteNum == 1 ? up1 : up2;
 			break;
 		case "down":
-			image = spriteNum == 1 ? down1 : down2;	
+			image = spriteNum == 1 ? down1 : down2;
 			break;
 		case "left":
 			image = spriteNum == 1 ? left1 : left2;
@@ -101,7 +106,7 @@ public class Player extends Entity {
 			image = spriteNum == 1 ? right1 : right2;
 			break;
 		}
-		
-		g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+
+		g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 	}
 }
