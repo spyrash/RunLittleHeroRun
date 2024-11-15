@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -22,6 +23,15 @@ public class Player extends Entity {
 
 		screenX = gp.screenWidth / 2;
 		screenY = gp.screenHeight / 2;
+
+		// for having a whole tile as rectangle
+		// solidArea = new Rectangle(0, 0, gp.tileSize, gp.tileSize);
+		solidArea = new Rectangle();
+		solidArea.x = 0;
+		solidArea.y = 16;
+		solidArea.width = 32;
+		solidArea.height = 32;
+
 		setDefaultValues();
 		getPlayerImage();
 	}
@@ -29,8 +39,8 @@ public class Player extends Entity {
 	public void setDefaultValues() {
 		// starting position
 		worldX = gp.tileSize * 21 - (gp.tileSize / 2);
-		worldY = gp.tileSize * 23 - (gp.tileSize / 2);
-		speed = 10;
+		worldY = gp.tileSize * 10 - (gp.tileSize / 2);
+		speed = 15;
 		direction = "down";
 	}
 
@@ -55,19 +65,41 @@ public class Player extends Entity {
 		if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
 			if (keyH.upPressed == true) {
 				direction = "up";
-				worldY -= speed;
+
 			}
 			if (keyH.downPressed == true) {
 				direction = "down";
-				worldY += speed;
+
 			}
 			if (keyH.leftPressed == true) {
 				direction = "left";
-				worldX -= speed;
+
 			}
 			if (keyH.rightPressed == true) {
 				direction = "right";
-				worldX += speed;
+
+			}
+
+			// CHECK TILE COLLISION
+			collisionOn = false;
+			gp.collUtility.checkTitle(this);
+
+			// IF COLLISION IS FALSE, PLAYER CAN MOVE
+			if (collisionOn == false) {
+				switch (direction) {
+				case "up":
+					worldY -= speed;
+					break;
+				case "down":
+					worldY += speed;
+					break;
+				case "left":
+					worldX -= speed;
+					break;
+				case "right":
+					worldX += speed;
+					break;
+				}
 			}
 
 			// remember method called 60 times per second

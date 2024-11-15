@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import entity.Player;
+import main.CollisionUtility;
 import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -27,16 +28,17 @@ public class GamePanel extends JPanel implements Runnable {
 
 	// WORLD SETTINGS
 	public final int maxWorldCol = 50;
-	public final int maxWorldRow = 50;
+	public final int maxWorldRow = 18;
 	public final int worldWidth = tileSize * maxWorldCol;
 	public final int worldHeight = tileSize * maxWorldRow;
 
 	// FPS
 	int FPS = 60;
 
-	TileManager tileM = new TileManager(this);
+	public TileManager tileM = new TileManager(this);
 	KeyHandler keyH = new KeyHandler();
 	Thread gameThread;
+	public CollisionUtility collUtility = new CollisionUtility(this);
 
 	public Player player = new Player(this, keyH);
 
