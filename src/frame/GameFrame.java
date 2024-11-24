@@ -1,7 +1,9 @@
 package frame;
 
 import javax.swing.JFrame;
-import game_panel.*;
+
+import game_panel.GamePanel;
+
 public class GameFrame extends JFrame {
 
 	public void start() {
@@ -9,14 +11,15 @@ public class GameFrame extends JFrame {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
 		window.setTitle("Run little hero run!");
-		
+
 		GamePanel gamePanel = new GamePanel();
 		window.add(gamePanel);
-		
-		window.pack(); 
+
+		window.pack();
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
-		
+
+		gamePanel.setupGame();
 		gamePanel.startGameThread();
 	}
 }

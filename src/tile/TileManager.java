@@ -97,7 +97,6 @@ public class TileManager {
 					&& worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
 				g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 			}
-			// TODO: add collision
 			worldCol++;
 			if (worldCol == gp.maxWorldCol) {
 				worldCol = 0;
